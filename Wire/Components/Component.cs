@@ -28,8 +28,18 @@ public sealed class Component<T>(IWiring<T> wiring, string name) : IComponent<T>
     {
     }
 
+    public Component<T> With(params IWire[] wires)
+    {
+        return this.With(wires.AsEnumerable());
+    }
+
+    public Component<T> With(IEnumerable<IWire> wires)
+    {
+        return new Component<T>(wiring.With(wires), name);
+    }
+
     public T Instance()
     {
-        throw new NotImplementedException();
+        return wiring.Wire(name).Value();
     }
 }
