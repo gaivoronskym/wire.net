@@ -6,10 +6,24 @@ namespace Wire.Wiring;
 public sealed class Binary(IScalar<bool> condition, IScalar<bool> scalar) : IScalar<bool>
 {
     public Binary(bool condition, Action action)
-        : this(new ScalarOf<bool>(condition), action)
+        : this(() => condition, action)
     {
     }
 
+
+    public Binary(Func<bool> condition, Action action)
+        : this(
+            new ScalarOf<bool>(condition),
+            new ScalarOf<bool>(
+                () =>
+                {
+                    action();
+                    return true;
+                }
+            )
+        )
+    {
+    }
 
     public Binary(IScalar<bool> condition, Action action)
         : this(
