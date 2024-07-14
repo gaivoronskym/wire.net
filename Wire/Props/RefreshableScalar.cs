@@ -14,6 +14,11 @@ public sealed class RefreshableScalar<T> : IScalar<T>
         : this(origin, new ActionOf<T>(input => {}))
     {
     }
+
+    public RefreshableScalar(IScalar<T> origin, Action action)
+        : this(origin, new ActionOf<T>(action))
+    {
+    }
     
     public RefreshableScalar(IScalar<T> origin, IAction<T> action)
     {
