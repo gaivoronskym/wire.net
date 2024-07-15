@@ -46,6 +46,11 @@ public sealed class CliProps : IProps
 
     private readonly IEnumerable<string> args;
 
+    public CliProps(params string[] args)
+        : this(args.AsEnumerable())
+    {
+    }
+
     public CliProps(IEnumerable<string> args)
     {
         this.args = args;

@@ -25,7 +25,7 @@ public sealed class Instance<T> : IInstance<T>
         this.scalar = instance;
         this.wires = wires;
     }
-    
+
     public bool Applicable(IAppContext context, string component)
     {
         return new Or<IWire>(

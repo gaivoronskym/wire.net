@@ -5,7 +5,7 @@ using Yaapii.Atoms.Enumerable;
 
 namespace Wire.Components;
 
-public sealed class Component<T>(IWiring<T> wiring, string name) : IComponent<T>
+public class Component<T>(IWiring<T> wiring, string name) : IComponent<T>
 {
 
     public Component(IAppContext ctx, params IScalar<T>[] instances)

@@ -1,14 +1,31 @@
-﻿using Yaapii.Atoms;
+﻿using Wire.Props;
+using Yaapii.Atoms;
 using Yaapii.Atoms.Enumerable;
 using Yaapii.Atoms.List;
+using Yaapii.Atoms.Map;
 using Yaapii.Atoms.Scalar;
 
 namespace Wire;
 
-public sealed class AppContext(IEnumerable<IKvp<string, IProps>> map) : IAppContext
+public sealed class AppContext(IEnumerable<IKvp<IProps>> map) : IAppContext
 {
-    public AppContext(params IKvp<string, IProps>[] keys)
-        : this(new ListOf<IKvp<string, IProps>>(keys))
+
+    public AppContext()
+        : this(new string[]{})
+    {
+    }
+
+    public AppContext(params string[] args)
+        : this(
+            new KvpOf<IProps>("app", new AppProps(args)),
+            new KvpOf<IProps>("cli", new CliProps(args)),
+            new KvpOf<IProps>("qualifiers", new QualifiersProps())
+        )
+    {
+    }
+
+    public AppContext(params IKvp<IProps>[] keys)
+        : this(new ListOf<IKvp<IProps>>(keys))
     {
     }
 
@@ -23,7 +40,7 @@ public sealed class AppContext(IEnumerable<IKvp<string, IProps>> map) : IAppCont
 
     private IScalar<bool> Has(string type)
     {
-        return new Contains<IKvp<string, IProps>>(
+        return new Contains<IKvp<IProps>>(
             map,
             (kvp) => kvp.Value().Equals(type)
         );
@@ -32,8 +49,8 @@ public sealed class AppContext(IEnumerable<IKvp<string, IProps>> map) : IAppCont
     private IScalar<IProps> Get(string type)
     {
         return new ScalarOf<IProps>(
-            () => new ItemAt<IKvp<string, IProps>>(
-                new Filtered<IKvp<string, IProps>>(
+            () => new ItemAt<IKvp<IProps>>(
+                new Filtered<IKvp<IProps>>(
                     (kvp) => kvp.Value().Equals(type),
                     map
                 )
