@@ -7,7 +7,6 @@ namespace Wire.Components;
 
 public class Component<T>(IWiring<T> wiring, string name) : IComponent<T>
 {
-
     public Component(IAppContext ctx, params IScalar<T>[] instances)
         : this(ctx, new Mapped<IScalar<T>, IInstance<T>>((input) => new Instance<T>(input), instances))
     {
