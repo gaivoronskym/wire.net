@@ -42,7 +42,7 @@ public sealed class AppContext(IEnumerable<IKvp<IProps>> map) : IAppContext
     {
         return new Contains<IKvp<IProps>>(
             map,
-            (kvp) => kvp.Value().Equals(type)
+            (kvp) => kvp.Key().Equals(type)
         );
     }
 
@@ -51,7 +51,7 @@ public sealed class AppContext(IEnumerable<IKvp<IProps>> map) : IAppContext
         return new ScalarOf<IProps>(
             () => new ItemAt<IKvp<IProps>>(
                 new Filtered<IKvp<IProps>>(
-                    (kvp) => kvp.Value().Equals(type),
+                    (kvp) => kvp.Key().Equals(type),
                     map
                 )
             ).Value().Value()

@@ -30,7 +30,7 @@ public sealed class BaseWiring<T> : IWiring<T>
 
         var candidates = new Joined<IInstance<T>>(
             new WiringCandidates<T>(cached, wires),
-            new WiringCandidates<T>(cached, wires)
+            new WiringCandidates<T>(cached, ctx, component)
         );
 
         return new Ternary<IEnumerable<IInstance<T>>, IInstance<T>>(

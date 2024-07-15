@@ -12,7 +12,7 @@ public sealed class FkComponent : Component<IScalar<bool>>
         : base(
             ctx,
             new Instance<IScalar<bool>>(
-                new ScalarOf<IScalar<bool>>(() => new FkScalar()),
+                new Live<IScalar<bool>>(() => new FkScalar()),
                 new QualifierWire(
                     typeof(FkScalar)
                 )

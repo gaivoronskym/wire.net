@@ -6,12 +6,12 @@ namespace Wire.Props;
 
 public sealed class RefreshableScalar<T> : IScalar<T>
 {
-    private IScalar<T> refreshed;
+    private Solid<T> refreshed;
     private readonly IScalar<T> origin;
-    private readonly IAction<T> action;
+    private readonly IAction<T> follow;
 
     public RefreshableScalar(IScalar<T> origin)
-        : this(origin, new ActionOf<T>(input => {}))
+        : this(origin, new ActionOf<T>(_ => {}))
     {
     }
 
@@ -20,11 +20,11 @@ public sealed class RefreshableScalar<T> : IScalar<T>
     {
     }
     
-    public RefreshableScalar(IScalar<T> origin, IAction<T> action)
+    public RefreshableScalar(IScalar<T> origin, IAction<T> follow)
     {
-        this.refreshed = new ScalarOf<T>(origin);
         this.origin = origin;
-        this.action = action;
+        this.refreshed = new Solid<T>(origin);
+        this.follow = follow;
     }
 
     public T Value()
@@ -34,7 +34,7 @@ public sealed class RefreshableScalar<T> : IScalar<T>
     
     public void Refresh()
     {
-        this.action.Invoke(this.refreshed.Value());
-        this.refreshed = new ScalarOf<T>(origin);
+        this.follow.Invoke(this.refreshed.Value());
+        this.refreshed = new Solid<T>(this.origin);
     }
 }
