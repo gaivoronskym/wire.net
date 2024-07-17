@@ -1,10 +1,19 @@
 ﻿namespace Wire.Cli;
 
-public abstract class CommandArgsEnvelope(string argument, IEnumerable<string> values) : ICommandArgs
+public abstract class CommandArgsEnvelope : ICommandArgs
 {
-    public bool Match(string argument)
+    private readonly string argument;
+    private readonly IEnumerable<string> values;
+
+    protected CommandArgsEnvelope(string argument, IEnumerable<string> values)
     {
-        return argument.Equals(argument);
+        this.argument = argument;
+        this.values = values;
+    }
+
+    public bool Match(string arg)
+    {
+        return this.argument.Equals(arg);
     }
 
     public IEnumerable<string> Values()

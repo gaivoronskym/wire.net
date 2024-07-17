@@ -2,7 +2,7 @@
 
 public interface ICommandArgs
 {
-    bool Match(string argument);
+    bool Match(string arg);
 
     IEnumerable<string> Values();
 }

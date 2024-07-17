@@ -8,6 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="qualifiers.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="qualifiers.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Yaapii.Atoms" Version="3.0.0" />
   </ItemGroup>
 

@@ -80,32 +80,6 @@ public sealed class LiveComponentTest
         );
     }
 
-    private sealed class Integer
-    {
-        private int value;
-
-        public Integer()
-            : this(0)
-        {
-
-        }
-
-        public Integer(int value)
-        {
-            this.value = value;
-        }
-
-        public void Increment()
-        {
-            value++;
-        }
-
-        public int Value()
-        {
-            return value;
-        }
-    }
-
     private sealed class CustomComponent(IAppContext ctx, Integer integer) : LiveComponent<bool>
     (
         ctx,

@@ -8,7 +8,7 @@ namespace Wire.Props;
 
 public sealed class XmlProps : IProps
 {
-    private readonly Solid<IXML> xml;
+    private readonly ScalarOf<IXML> xml;
 
     public XmlProps(string path)
         : this(new Uri(path))
@@ -21,43 +21,47 @@ public sealed class XmlProps : IProps
     }
 
     public XmlProps(IInput input)
-        : this(new Solid<IXML>(() => new XMLCursor(input)))
+        : this(new ScalarOf<IXML>(() => new XMLCursor(input)))
     {
     }
 
-    public XmlProps(Solid<IXML> xml)
+    public XmlProps(ScalarOf<IXML> xml)
     {
         this.xml = xml;
     }
 
     public string Value(string prop)
     {
-        return new Ternary<bool, string>(
-            new ScalarOf<bool>(() => this.Has(prop)),
-            new ScalarOf<string>(() => this.xml.Value().Values(prop)[0]),
-            new ScalarOf<string>(() => throw new ArgumentException($"Property '{prop}' does not exist in props"))
-        ).Value();
+        return this.xml.Value().Values(Text(prop))[0];
     }
 
     public string Value(string prop, string defaults)
     {
         return new Ternary<bool, string>(
             new ScalarOf<bool>(() => this.Has(prop)),
-            new ScalarOf<string>(() => this.xml.Value().Values(prop)[0]),
+            new ScalarOf<string>(() => this.xml.Value().Values(Text(prop))[0]),
             new ScalarOf<string>(() => defaults)
         ).Value();
     }
 
     public IEnumerable<string> Values(string prop)
     {
-        return new Mapped<IXML, string>(
-            input => input.ToString()!,
-            this.xml.Value().Nodes(prop)
-        );
+        return this.xml.Value().Values(Text(prop));
     }
 
     public bool Has(string prop)
     {
-        return this.xml.Value().Nodes(prop).Count > 0;
+        if (string.IsNullOrEmpty(prop))
+        {
+            return false;
+        }
+
+        var path = $"//{prop}";
+        return this.xml.Value().Nodes(path).Count > 0;
+    }
+
+    private string Text(string prop)
+    {
+        return $"//{prop}/text()";
     }
 }
