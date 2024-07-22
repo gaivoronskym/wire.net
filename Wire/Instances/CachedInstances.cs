@@ -9,9 +9,7 @@ public sealed class CachedInstances<T> : ListEnvelope<IInstance<T>>
     public CachedInstances(IEnumerable<IInstance<T>> instances, string component)
         : this(
             component,
-            new MapOf<IEnumerable<IInstance<T>>>(
-                new KeyValuePair<string, IEnumerable<IInstance<T>>>(component, instances)
-            )
+            new ComponentsContainer<T>(component, instances)
         )
     {
     }

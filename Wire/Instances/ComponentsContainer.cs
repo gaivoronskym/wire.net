@@ -4,17 +4,17 @@ using Yaapii.Atoms.Map;
 
 namespace Wire.Instances;
 
-public sealed class ComponentsContainer : MapEnvelope<string, IEnumerable<IInstance<object>>>
+public sealed class ComponentsContainer<T> : MapEnvelope<string, IEnumerable<IInstance<T>>>
 {
-    private static IDictionary<string, IEnumerable<IInstance<object>>> map =
-        new ConcurrentDictionary<string, IEnumerable<IInstance<object>>>();
+    private static IDictionary<string, IEnumerable<IInstance<T>>> map =
+        new ConcurrentDictionary<string, IEnumerable<IInstance<T>>>();
 
     public ComponentsContainer()
         : base(() => map, false)
     {
     }
 
-    public ComponentsContainer(string component, IEnumerable<IInstance<object>> components)
+    public ComponentsContainer(string component, IEnumerable<IInstance<T>> components)
         : base(
             () =>
             {

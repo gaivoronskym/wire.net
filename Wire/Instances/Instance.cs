@@ -9,7 +9,7 @@ public sealed class Instance<T> : IInstance<T>
 {
     private readonly RefreshableScalar<T> scalar;
     private readonly IEnumerable<IWire> wires;
-    
+
     public Instance(IScalar<T> instance, params IWire[] wires)
         : this(instance, wires.AsEnumerable())
     {
