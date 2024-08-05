@@ -7,10 +7,10 @@ namespace Wire.Props;
 
 public sealed class InputsFromFileNames : ListEnvelope<IInput>
 {
-    public InputsFromFileNames(IEnumerable<string> names)
+    public InputsFromFileNames(IEnumerable<string> names, Assembly assembly)
         : base(
             () => new Mapped<string, IInput>(
-                (input) => new ResourceOf(input, Assembly.GetAssembly(typeof(InputsFromFileNames))),
+                (input) => new ResourceOf(input, assembly),
                 names
             ),
             false

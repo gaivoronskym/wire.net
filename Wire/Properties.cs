@@ -14,13 +14,24 @@ public sealed class Properties : MapEnvelope<string, string>
                 var lines = new Split(new TextOf(input), "\r\n");
                 foreach (var line in lines)
                 {
-                    var pair = new Split(line, "=");
+                    var pair = new Split(
+                        line,
+                        "="
+                    );
                     if (pair.Count() != 2)
                     {
                         continue;
                     }
 
-                    map.Add(pair.First(), pair.Last());
+                    var key = new Trimmed(
+                        new TextOf(pair.First)
+                    ).AsString();
+
+                    var value = new Trimmed(
+                        new TextOf(pair.Last)
+                    ).AsString();
+
+                    map.Add(key, value);
                 }
 
                 return map;

@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using Yaapii.Atoms;
+﻿using Yaapii.Atoms;
 using Yaapii.Atoms.IO;
 
 namespace Wire.Props;

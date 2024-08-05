@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System.Reflection;
+using System.Xml;
 using Wire.Instances;
 using Wire.Props;
 using Wire.Tests.Fk;
@@ -29,9 +30,10 @@ public sealed class BaseWiringTest
     [Fact]
     public void WiresInstanceWithWireCondition()
     {
+        var assembly = Assembly.GetAssembly(this.GetType())!;
         Assert.True(
             new BaseWiring<bool>(
-                new AppContext("profile=test"),
+                new AppContext(assembly, "profile=test"),
                 new ListOf<IInstance<bool>>(
                     new Instance<bool>(new FkScalar(), new ProfileWire("test1"))
                 )
@@ -42,9 +44,10 @@ public sealed class BaseWiringTest
     [Fact]
     public void WiresInstanceWithDynamicWireCondition()
     {
+        var assembly = Assembly.GetAssembly(this.GetType())!;
         Assert.True(
             new BaseWiring<bool>(
-                new AppContext("profile=dev"),
+                new AppContext(assembly, "profile=dev"),
                 new ListOf<IInstance<bool>>(
                     new Instance<bool>(new Live<bool>(() => false), new ProfileWire("dev")),
                     new Instance<bool>(new Live<bool>(() => true), new ProfileWire("test"))

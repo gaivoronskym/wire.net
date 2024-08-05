@@ -4,6 +4,7 @@ using Yaapii.Atoms.Func;
 using Yaapii.Atoms.List;
 using Yaapii.Atoms.Scalar;
 using Yaapii.Atoms.Text;
+using Mapped = Yaapii.Atoms.Enumerable.Mapped<string, string>;
 
 namespace Wire.Props;
 
@@ -53,7 +54,10 @@ public sealed class CliProps : IProps
 
     public CliProps(IEnumerable<string> args)
     {
-        this.args = args;
+        this.args = new Mapped(
+            (input) => new Replaced(new TextOf(input), "--", string.Empty).AsString(),
+            args
+        );
     }
 
     public string Value(string prop)

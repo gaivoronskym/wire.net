@@ -9,7 +9,7 @@ public sealed class QualifierWireTest
     public void MatchesQualifiers()
     {
         Assert.True(
-            new QualifierWire(nameof(FkScalar)).IsActive(new AppContext(), nameof(FkComponent))
+            new QualifierWire(nameof(FkScalar)).IsActive(new AppContext(), $"//{nameof(FkComponent)}")
         );
     }
 

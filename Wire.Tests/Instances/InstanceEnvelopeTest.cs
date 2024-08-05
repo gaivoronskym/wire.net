@@ -1,4 +1,5 @@
-﻿using Wire.Instances;
+﻿using System.Reflection;
+using Wire.Instances;
 using Wire.Tests.Fk;
 using Wire.Wiring;
 using Yaapii.Atoms.List;
@@ -13,7 +14,7 @@ public sealed class InstanceEnvelopeTest
     {
         Assert.True(
             new CustomInstance()
-                .Applicable(new AppContext($"profile={Profile()}"), "")
+                .Applicable(new AppContext(Assembly.GetAssembly(typeof(InstanceEnvelopeTest))!,$"profile={Profile()}"), "")
         );
     }
 

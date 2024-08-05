@@ -33,7 +33,7 @@ public sealed class BasicProps : IProps
     {
         return new Ternary<bool, string>(
             new ScalarOf<bool>(() => this.Has(prop)),
-            new ScalarOf<string>(() => this.Value(prop)),
+            new ScalarOf<string>(() => this.Find(prop)),
             new ScalarOf<string>(() => throw new IOException($"Property '{prop}' not found"))
         ).Value();
     }
@@ -42,7 +42,7 @@ public sealed class BasicProps : IProps
     {
         return new Ternary<bool, string>(
             new ScalarOf<bool>(() => this.Has(prop)),
-            new ScalarOf<string>(() => this.Value(prop)),
+            new ScalarOf<string>(() => this.Find(prop)),
             new ScalarOf<string>(() => defaults)
         ).Value();
     }
@@ -60,5 +60,10 @@ public sealed class BasicProps : IProps
     private Properties Props()
     {
         return BasicProps.Singleton.Invoke(this.input);
+    }
+
+    private string Find(string prop)
+    {
+        return Props()[prop];
     }
 }

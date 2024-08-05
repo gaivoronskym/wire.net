@@ -1,5 +1,4 @@
 ﻿using Yaapii.Atoms;
-using Yaapii.Atoms.Enumerable;
 using Yaapii.Atoms.IO;
 using Yaapii.Atoms.Scalar;
 using Yaapii.Xml;
@@ -56,12 +55,12 @@ public sealed class XmlProps : IProps
             return false;
         }
 
-        var path = $"//{prop}";
+        var path = $"{prop}";
         return this.xml.Value().Nodes(path).Count > 0;
     }
 
     private string Text(string prop)
     {
-        return $"//{prop}/text()";
+        return $"{prop}/text()";
     }
 }

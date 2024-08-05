@@ -10,10 +10,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="app-prod.properties" />
+    <None Remove="app-test.properties" />
+    <None Remove="app.properties" />
     <None Remove="qualifiers.xml" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="app-prod.properties">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="app-test.properties">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Content Include="qualifiers.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -32,6 +41,16 @@
 
   <ItemGroup>
     <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Props\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="app.properties">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

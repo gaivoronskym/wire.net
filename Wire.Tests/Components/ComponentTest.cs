@@ -1,4 +1,5 @@
-﻿using Wire.Components;
+﻿using System.Reflection;
+using Wire.Components;
 using Wire.Instances;
 using Wire.Wiring;
 using Yaapii.Atoms.Scalar;
@@ -21,9 +22,10 @@ public sealed class ComponentTest
     [Fact]
     public void RetrievesInstanceWithWireCondition()
     {
+        var assembly = Assembly.GetAssembly(this.GetType())!;
         Assert.True(
             new CustomComponent(
-                new AppContext("profile=test")
+                new AppContext(assembly, "profile=test")
             ).Instance()
         );
     }

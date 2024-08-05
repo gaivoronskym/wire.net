@@ -1,4 +1,5 @@
-﻿using Wire.Props;
+﻿using System.Reflection;
+using Wire.Props;
 using Yaapii.Atoms;
 using Yaapii.Atoms.Enumerable;
 using Yaapii.Atoms.List;
@@ -10,14 +11,14 @@ namespace Wire;
 public sealed class AppContext(IEnumerable<IKvp<IProps>> map) : IAppContext
 {
 
-    public AppContext()
-        : this(new string[]{})
+    public AppContext(Assembly assembly)
+        : this(assembly, new string[]{})
     {
     }
 
-    public AppContext(params string[] args)
+    public AppContext(Assembly assembly, params string[] args)
         : this(
-            new KvpOf<IProps>("app", new AppProps(args)),
+            new KvpOf<IProps>("app", new AppProps(assembly, args)),
             new KvpOf<IProps>("cli", new CliProps(args)),
             new KvpOf<IProps>("qualifiers", new QualifiersProps())
         )

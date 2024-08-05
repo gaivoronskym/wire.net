@@ -1,8 +1,8 @@
-﻿using Wire.Instances;
+﻿using System.Reflection;
+using Wire.Instances;
 using Wire.Wiring;
 using Yaapii.Atoms.List;
 using Yaapii.Atoms.Scalar;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Wire.Tests.Instances;
 
@@ -11,8 +11,10 @@ public sealed class WiringCandidatesTest
     [Fact]
     public void ChoosesBothCandidatesForWiring()
     {
+        var assembly = Assembly.GetAssembly(typeof(WiringCandidatesTest))!;
         var profile = "test";
         var context = new AppContext(
+            assembly,
             $"profile={profile}"
         );
 
