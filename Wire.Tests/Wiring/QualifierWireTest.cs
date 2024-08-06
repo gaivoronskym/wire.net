@@ -1,4 +1,5 @@
-﻿using Wire.Tests.Fk;
+﻿using System.Reflection;
+using Wire.Tests.Fk;
 using Wire.Wiring;
 
 namespace Wire.Tests.Wiring;
@@ -9,7 +10,7 @@ public sealed class QualifierWireTest
     public void MatchesQualifiers()
     {
         Assert.True(
-            new QualifierWire(nameof(FkScalar)).IsActive(new AppContext(), $"//{nameof(FkComponent)}")
+            new QualifierWire(nameof(FkScalar)).IsActive(new AppContext(Assembly.GetExecutingAssembly()), $"//{nameof(FkComponent)}")
         );
     }
 
@@ -17,7 +18,7 @@ public sealed class QualifierWireTest
     public void QualifierNotMatched()
     {
         Assert.False(
-            new QualifierWire("sth").IsActive(new AppContext(), "")
+            new QualifierWire("sth").IsActive(new AppContext(Assembly.GetExecutingAssembly()), "")
         );
     }
 

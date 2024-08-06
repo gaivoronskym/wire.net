@@ -1,4 +1,5 @@
-﻿using Wire.Instances;
+﻿using System.Reflection;
+using Wire.Instances;
 using Wire.Tests.Fk;
 using Wire.Wiring;
 using Yaapii.Atoms.List;
@@ -47,7 +48,7 @@ public sealed class InstancesTest
             new Instance<bool>(
                 new Live<bool>(() => true),
                 new FkWire(true)
-            ).Applicable(new AppContext(), "")
+            ).Applicable(new AppContext(Assembly.GetExecutingAssembly()), "")
         );
     }
 
@@ -58,7 +59,7 @@ public sealed class InstancesTest
             new Instance<bool>(
                 new Live<bool>(() => false),
                 new FkWire(false)
-            ).Applicable(new AppContext(), "")
+            ).Applicable(new AppContext(Assembly.GetExecutingAssembly()), "")
         );
     }
 
@@ -79,7 +80,7 @@ public sealed class InstancesTest
         Assert.False(
             new Instance<bool>(
                 new Live<bool>(() => true)
-            ).Applicable(new AppContext(), "")
+            ).Applicable(new AppContext(Assembly.GetExecutingAssembly()), "")
         );
     }
 

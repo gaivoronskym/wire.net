@@ -13,7 +13,7 @@ public sealed class ComponentTest
     {
         Assert.True(
             new Component<bool>(
-                new AppContext(),
+                new AppContext(Assembly.GetExecutingAssembly()),
                 new True()
             ).Instance()
         );
@@ -35,7 +35,7 @@ public sealed class ComponentTest
     {
         Assert.True(
             new CustomComponent(
-                new AppContext()
+                new AppContext(Assembly.GetExecutingAssembly())
             ).With(new ProfileWire("test")).Instance()
         );
     }
@@ -44,7 +44,7 @@ public sealed class ComponentTest
     public void HandlesMultipleInstances()
     {
         var component = new CustomComponent(
-            new AppContext()
+            new AppContext(Assembly.GetExecutingAssembly())
         );
 
         Assert.True(

@@ -14,9 +14,11 @@ public sealed class QualifierWire(string value) : IWire
     public bool IsActive(IAppContext context, string component)
     {
         var props = new QualifiersPropsOf(context);
+        var xpath = $"//class[@name='{component}']";
+
         return new And(
-            new ScalarOf<bool>(() => props.Has(component)),
-            new ScalarOf<bool>(() => props.Value(component).Equals(value))
+            new ScalarOf<bool>(() => props.Has(xpath)),
+            new ScalarOf<bool>(() => props.Value($"{xpath}/qualifier").Equals(value))
         ).Value();
     }
 

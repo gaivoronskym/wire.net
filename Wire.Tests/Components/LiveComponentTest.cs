@@ -13,7 +13,7 @@ public sealed class LiveComponentTest
     {
         Assert.True(
             new LiveComponent<bool>(
-                new AppContext(),
+                new AppContext(Assembly.GetExecutingAssembly()),
                 new Instance<bool>(new True())
             ).Instance()
         );
@@ -35,7 +35,7 @@ public sealed class LiveComponentTest
     {
         Assert.True(
             new CustomComponent(
-                new AppContext(), new Integer()
+                new AppContext(Assembly.GetExecutingAssembly()), new Integer()
             ).With(new ProfileWire("test")).Instance()
         );
     }
@@ -45,7 +45,7 @@ public sealed class LiveComponentTest
     {
         var value = new Integer();
         var component = new CustomComponent(
-            new AppContext(), value
+            new AppContext(Assembly.GetExecutingAssembly()), value
         );
 
         component.Instance();

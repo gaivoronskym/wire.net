@@ -44,10 +44,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Props\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Include="app.properties">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>

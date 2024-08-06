@@ -59,7 +59,7 @@ public sealed class XmlPropsTest
                         Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "qualifiers.xml")
                     )
                 )
-            ).Value("//FkComponent", "def")
+            ).Value("//class/qualifier", "def")
         );
     }
 

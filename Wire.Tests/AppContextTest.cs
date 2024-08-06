@@ -1,4 +1,6 @@
-﻿namespace Wire.Tests;
+﻿using System.Reflection;
+
+namespace Wire.Tests;
 
 public sealed class AppContextTest
 {
@@ -6,7 +8,7 @@ public sealed class AppContextTest
     public void ContextContainsOptions()
     {
         Assert.NotNull(
-            new AppContext()
+            new AppContext(Assembly.GetExecutingAssembly())
                 .Props("cli")
         );
     }
@@ -15,7 +17,7 @@ public sealed class AppContextTest
     public void ContextContainsConfig()
     {
         Assert.NotNull(
-            new AppContext().Props("app")
+            new AppContext(Assembly.GetExecutingAssembly()).Props("app")
         );
     }
 
@@ -23,7 +25,7 @@ public sealed class AppContextTest
     public void ContextContainsDependencies()
     {
         Assert.NotNull(
-            new AppContext().Props("qualifiers")
+            new AppContext(Assembly.GetExecutingAssembly()).Props("qualifiers")
         );
     }
 }
