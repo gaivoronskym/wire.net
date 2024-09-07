@@ -1,4 +1,5 @@
 ﻿using Wire.Props;
+using Yaapii.Atoms.Map;
 
 namespace Wire.Sample
 {
@@ -6,7 +7,13 @@ namespace Wire.Sample
     {
         static void Main(string[] args)
         {
-            var props = new QualifiersProps().Has("component");
+            var component = new ItemsComponent(
+                new AppContext(
+                    new KvpOf<IProps>("cli", new CliProps("--profile=test"))
+                )
+            );
+
+            component.Instance().PrintItem(Guid.NewGuid());
             Console.ReadKey();
         }
     }

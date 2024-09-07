@@ -25,7 +25,7 @@ public sealed class AppContext(IEnumerable<IKvp<IProps>> map) : IAppContext
     {
     }
 
-    private AppContext(params IKvp<IProps>[] keys)
+    public AppContext(params IKvp<IProps>[] keys)
         : this(new ListOf<IKvp<IProps>>(keys))
     {
     }
