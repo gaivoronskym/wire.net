@@ -3,7 +3,12 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
+    <Version>1.0.0-alpha1</Version>
+    <Title>Wire</Title>
+    <PackageId>Wire</PackageId>
+    <Authors>Gaivoronskym</Authors>
+    <PackageProjectUrl>https://github.com/gaivoronskym/wire.net</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
